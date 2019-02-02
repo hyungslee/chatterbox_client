@@ -1,16 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Postdetail from "./Post/Postdetail";
 
 export default class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
+      username: localStorage.getItem("user") || "로그인 해줭!",
       text: null,
       roomid: 1,
+      userid: 1,
       texts: []
     };
   }
+
+  componentDidMount = () => {
+    axios
+      .get("posts/post")
+      .then(res => {
+        console.log("[+] 정보 송신 완료");
+        const texts = res.data;
+        this.setState({ texts: texts });
+      })
+      .catch(err => console.log(err, "[-] 응답없음"));
+  };
 
   handleChange = e => {
     this.setState({
@@ -23,7 +36,8 @@ export default class Post extends Component {
       .post("posts/post", {
         username: this.state.username,
         text: this.state.text,
-        roomid: this.state.roomid
+        roomid: this.state.roomid,
+        userid: this.state.userid
       })
       .then(res => {
         if (res.data) {
@@ -47,20 +61,11 @@ export default class Post extends Component {
       .catch(err => console.log(err, "[-] 응답없음"));
   };
 
-  renderfunc = () => {
-    console.log(this.state.texts);
-  };
+  renderfunc = () => {};
 
   render() {
-    console.log(this.state.texts);
     return (
       <div>
-        <input
-          className="post-username-input"
-          placeholder="name"
-          name="username"
-          onChange={this.handleChange}
-        />
         <input
           className="post-text-input"
           placeholder="text"
@@ -71,14 +76,15 @@ export default class Post extends Component {
           제출!
         </button>
         <div>
-          {/* {this.state.texts.map(() => {
-            return (
-              <div>
-                <div>{this.state.texts.username}</div>
-                <div>{this.state.texts.text}</div>
-              </div>
-            );
-          })} */}
+          {this.state.texts
+            .map(text => {
+              return (
+                <div>
+                  <Postdetail username={text.username} text={text.text} />
+                </div>
+              );
+            })
+            .reverse()}
         </div>
       </div>
     );
