@@ -8,15 +8,37 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "로그인해!!"
+      username: "fake"
     };
   }
+
+  changeUsername = newID => {
+    this.setState({
+      username: newID
+    });
+  };
+
   render() {
+    console.log(this.state.username);
     return (
       <Router>
         <Fragment>
-          <Route exact path="/" component={Index} />
-          <Route path="/login" component={Login} />
+          <Route
+            exact
+            path="/"
+            component={() => <Index username={this.state.username} />}
+          />
+          <Route
+            path="/login"
+            component={Login}
+            // component={history => (
+            //   <Login
+            //     username={this.state.username}
+            //     changeUsername={this.changeUsername}
+            //     history={history}
+            //   />
+            // )}
+          />
           <Route path="/signup" component={Signup} />
         </Fragment>
       </Router>

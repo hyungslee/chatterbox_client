@@ -10,7 +10,7 @@ export default class Index extends Component {
     super(props);
     this.state = {
       appname: "GO HOME JOHNNY!!",
-      username: localStorage.getItem("user") || "로그인이 필요합니다!",
+      username: this.props.username,
       isLogind: false,
       Loginout: "로그인해라!!",
       link: "/login"
@@ -18,7 +18,7 @@ export default class Index extends Component {
   }
 
   componentDidMount = () => {
-    if (!localStorage.getItem("user")) {
+    if (this.state.username === "fake") {
       this.setState({
         isLogind: false,
         Loginout: "로그인해라!!",
@@ -35,9 +35,7 @@ export default class Index extends Component {
 
   clickLogoutButton = () => {
     if (this.state.isLogind) {
-      localStorage.removeItem("user");
       this.setState({
-        username: "로그인 해줭!",
         isLogind: false,
         Loginout: "로그인해라!!",
         link: "/login"
@@ -65,7 +63,6 @@ export default class Index extends Component {
           </Link>
           <div />
           <Room />
-          <div>{this.props.username}</div>
           <Post />
         </div>
 

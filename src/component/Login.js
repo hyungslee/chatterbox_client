@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 export default class Login extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ export default class Login extends Component {
       .post("/users/login", data)
       .then(res => {
         if (res.data) {
-          localStorage.setItem("user", this.state.username);
+          // this.props.changeUsername(this.state.username);
           this.props.history.push("/");
         } else {
           this.setState({
