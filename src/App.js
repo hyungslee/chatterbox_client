@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-// import axios from "axios";
-import Room from "./component/Room";
-import Post from "./component/Post";
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Index from "./component/Index";
+import Login from "./component/Login";
+import Signup from "./component/Signup";
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appname: "GO HOME JOHNNY!!"
+      username: "로그인해!!"
     };
   }
-
   render() {
     return (
-      <div>
-        <h1>{this.state.appname}</h1>
-        <Room />
-        <Post />
-      </div>
+      <Router>
+        <Fragment>
+          <Route exact path="/" component={Index} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+        </Fragment>
+      </Router>
     );
   }
 }
-
-export default App;

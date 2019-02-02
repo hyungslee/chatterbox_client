@@ -6,7 +6,7 @@ export default class Room extends Component {
     super(props);
     this.state = {
       roomname: "고 홈 좌니!!",
-      currentroom: "집에가!!"
+      currentroom: "Home"
     };
   }
 
@@ -35,7 +35,7 @@ export default class Room extends Component {
     return (
       <div>
         <div>
-          <h2>{this.state.currentroom}</h2>
+          <h2>Roomname {this.state.currentroom}</h2>
         </div>
         <div>
           <input
