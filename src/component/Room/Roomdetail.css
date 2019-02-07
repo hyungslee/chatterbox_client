@@ -1,0 +1,22 @@
+  #roomdetail {
+    border: 1px solid blue;
+  }
+  .roomdetail-container {
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .room-one {
+    text-align: center;
+    height: 100%;
+    font-size: 20px;
+    color: #fd0090;
+    background-color:whitesmoke;
+    border: #fd0090;
+  }
+  .room-one:hover {
+    cursor: pointer;
+    background-color: #fd0090;
+    color: whitesmoke;
+  }

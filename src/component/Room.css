@@ -1,0 +1,40 @@
+
+    #room {
+      width: 100%;
+      flex:1;
+    }
+    .room-container {
+      justify-content: center;
+      align-items: center;
+      border : 1px solid gold;
+      
+    }
+    .room-name {
+      text-align: center;
+      margin: 10px;
+      font-size : 30px;
+    }
+    .room-input {
+      margin : 10px;
+    }
+    .room-input-box {
+      font-size: 15px;
+      text-align: left;
+      height: 50px;
+      margin: 10px;
+      padding: 3px;
+    }
+    .room-btn {
+      font-size: 18px;
+      font-weight: 500;
+      height: 50px;
+      margin: 10px;
+      color: whitesmoke;
+      border: none;
+      background-color: #ff8906;
+      outline-style: none;
+    }
+    .room-btn:hover {
+      cursor: pointer;
+      background-color: #ff7f00;
+    }
