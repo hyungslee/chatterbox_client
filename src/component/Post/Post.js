@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Postdetail from "./Post/Postdetail";
+import Postdetail from "./detail/Postdetail";
 import "./Post.css";
 
 export default class Post extends Component {
@@ -9,22 +9,12 @@ export default class Post extends Component {
     this.state = {
       username: localStorage.getItem("user") || "로그인 해줭!",
       text: null,
-      roomid: 1,
-      userid: 1,
-      texts: []
+      roomid: 2,
+      userid: 1
     };
   }
 
-  componentDidMount = () => {
-    axios
-      .get("posts/post")
-      .then(res => {
-        console.log("[+] 정보 송신 완료");
-        const texts = res.data;
-        this.setState({ texts: texts });
-      })
-      .catch(err => console.log(err, "[-] 응답없음"));
-  };
+  componentDidMount = () => {};
 
   handleChange = e => {
     this.setState({
@@ -57,12 +47,13 @@ export default class Post extends Component {
       .then(res => {
         console.log("[+] 정보 송신 완료");
         const texts = res.data;
-        this.setState({ texts: texts });
+        this.props.texts = texts;
       })
       .catch(err => console.log(err, "[-] 응답없음"));
   };
 
   render() {
+    console.log("post :", this.state.texts);
     return (
       <div id="post">
         <div className="post-container">
@@ -80,7 +71,7 @@ export default class Post extends Component {
           </div>
 
           <div>
-            {this.state.texts
+            {this.props.texts
               .map(text => {
                 return (
                   <div>

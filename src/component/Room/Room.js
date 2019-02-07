@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Roomdetail from "./Room/Roomdetail";
+import Roomdetail from "./detail/Roomdetail";
 import "./Room.css";
 
 export default class Room extends Component {
@@ -81,7 +81,14 @@ export default class Room extends Component {
           </div>
           {this.state.rooms
             .map(room => {
-              return <Roomdetail room={room.roomname} />;
+              return (
+                <Roomdetail
+                  room={room.roomname}
+                  roomid={this.props.roomid}
+                  id={room.id}
+                  findPost={this.props.findPost}
+                />
+              );
             })
             .reverse()}
         </div>
