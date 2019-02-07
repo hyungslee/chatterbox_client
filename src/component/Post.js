@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Postdetail from "./Post/Postdetail";
+import "./Post.css";
 
 export default class Post extends Component {
   constructor(props) {
@@ -61,30 +62,34 @@ export default class Post extends Component {
       .catch(err => console.log(err, "[-] 응답없음"));
   };
 
-  renderfunc = () => {};
-
   render() {
     return (
-      <div>
-        <input
-          className="post-text-input"
-          placeholder="text"
-          name="text"
-          onChange={this.handleChange}
-        />
-        <button className="post-button" onClick={this.writeNewtext}>
-          제출!
-        </button>
-        <div>
-          {this.state.texts
-            .map(text => {
-              return (
-                <div>
-                  <Postdetail username={text.username} text={text.text} />
-                </div>
-              );
-            })
-            .reverse()}
+      <div id="post">
+        <div className="post-container">
+          <div className="post-name">욕은 쓰면 안대영~</div>
+          <div className="post-input">
+            <input
+              className="post-input-box"
+              placeholder="text"
+              name="text"
+              onChange={this.handleChange}
+            />
+            <button className="post-btn" onClick={this.writeNewtext}>
+              제출!
+            </button>
+          </div>
+
+          <div>
+            {this.state.texts
+              .map(text => {
+                return (
+                  <div>
+                    <Postdetail username={text.username} text={text.text} />
+                  </div>
+                );
+              })
+              .reverse()}
+          </div>
         </div>
       </div>
     );

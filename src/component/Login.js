@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./Login.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -60,7 +61,6 @@ export default class Login extends Component {
       .post("/users/login", data)
       .then(res => {
         if (res.data) {
-          // this.props.changeUsername(this.state.username);
           this.props.history.push("/");
         } else {
           this.setState({
@@ -121,86 +121,6 @@ export default class Login extends Component {
             </div>
           </div>
         </div>
-
-        <style jsx>{`
-          #login {
-            background-color: rgba(0, 0, 0, 0.03);
-          }
-          .login_container {
-            max-width: 1140px;
-            height: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .login_box {
-            border: 1px solid #ddd;
-            width: 370px;
-            background-color: white;
-          }
-          .login-text {
-            font-size: 35px;
-            text-align: left;
-            margin: 35px 20px;
-          }
-          .login-inputbox {
-            text-align: center;
-            margin: 0px 20px;
-          }
-          .login-input {
-            margin-top: 5px;
-            margin-bottom: 5px;
-          }
-          .input-box {
-            width: 100%;
-            height: 40px;
-            font-size: 15px;
-            padding: 5px 0px 5px 5px;
-            border: 1px solid #ddd;
-          }
-          .wanning-div {
-            color: red;
-            font-size: 11px;
-            height: 20px;
-          }
-          .login-btn {
-            font-size: 18px;
-            font-weight: 500;
-            width: 100%;
-            height: 50px;
-            padding: 10px;
-            color: whitesmoke;
-            border: none;
-            background-color: #ff8906;
-            outline-style: none;
-          }
-          .login-btn:hover {
-            cursor: pointer;
-            background-color: #ff7f00;
-          }
-          .login-a-div {
-            margin-top: 10px;
-          }
-          .login-b-div {
-            margin-bottom: 20px;
-            font-size: 15px;
-            font-weight: 500;
-            color: #246db7;
-          }
-          .login-b-div:hover {
-            cursor: pointer;
-            color: #ff8906;
-          }
-          @media screen and (max-width: 600px) {
-            #login {
-              width: 100%;
-            }
-            .login_container {
-              height: 600px;
-            }
-          }
-        `}</style>
       </div>
     );
   }

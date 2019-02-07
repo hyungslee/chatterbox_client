@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Room from "../component/Room";
 import Post from "../component/Post";
 import { Link } from "react-router-dom";
+import "./Index.css";
 
 // const username = localStorage.getItem("user");
 
@@ -18,7 +19,7 @@ export default class Index extends Component {
   }
 
   componentDidMount = () => {
-    if (this.state.username === "fake") {
+    if (this.state.username === "Who R U ?") {
       this.setState({
         isLogind: false,
         Loginout: "로그인해라!!",
@@ -46,64 +47,24 @@ export default class Index extends Component {
 
   render() {
     return (
-      <div id="index">
-        <div className="index_container">
-          <div className="index_inform">
-            <h1>{this.state.appname}</h1>
-          </div>
+      <div id="main">
+        <div id="index">
+          <div className="index-container">
+            <div className="index-inform-1">Super Sexy ChatterBox!</div>
 
-          <div className="index_inform">
-            <h2>{this.state.username}</h2>
-          </div>
+            <div className="index-inform-2">{this.state.username}</div>
 
-          <Link to={this.state.link}>
-            <button className="index-btn" onClick={this.clickLogoutButton}>
-              {this.state.Loginout}
-            </button>
-          </Link>
-          <div />
-          <Room />
-          <Post />
+            <Link to={this.state.link}>
+              <button className="index-btn" onClick={this.clickLogoutButton}>
+                {this.state.Loginout}
+              </button>
+            </Link>
+          </div>
         </div>
-
-        <style jsx>{`
-          #index {
-            background-color: rgba(0, 0, 0, 0.03);
-          }
-          .index_container {
-            text-align: center;
-            max-width: 100%;
-            height: 100%;
-            justify-content: center;
-          }
-          .index_inform {
-            width: 100%;
-            height: 50px;
-            font-size: 15px;
-          }
-          .index-btn {
-            width: 300px;
-            font-size: 18px;
-            font-weight: 500;
-            height: 50px;
-            color: whitesmoke;
-            border: none;
-            background-color: #ff8906;
-            outline-style: none;
-          }
-          .index-btn:hover {
-            cursor: pointer;
-            background-color: #ff7f00;
-          }
-          @media screen and (max-width: 600px) {
-            #login {
-              width: 100%;
-            }
-            .index_container {
-              height: 600px;
-            }
-          }
-        `}</style>
+        <div className="component-div">
+          <Room className="room" />
+          <Post className="post" />
+        </div>
       </div>
     );
   }

@@ -1,0 +1,42 @@
+
+    #post {
+        width: 100%;
+        flex : 3;
+      }
+      .post-container {
+        justify-content: center;
+        align-items: center;
+        border : 1px solid black;
+        
+      }
+      .post-name {
+        text-align: left;
+        margin: 10px;
+        font-size : 30px;
+      }
+      .post-input {
+        margin : 10px;
+      }
+      .post-input-box {
+        font-size: 15px;
+        text-align: left;
+        height: 50px;
+        width: 80%;
+        margin: 10px;
+        padding: 3px;
+      }
+      .post-btn {
+        font-size: 18px;
+        font-weight: 500;
+        height: 50px;
+        padding: 10px;
+        color: whitesmoke;
+        border: none;
+        background-color: #ff8906;
+        outline-style: none;
+      }
+      .rpost-btn:hover {
+        cursor: pointer;
+        background-color: #ff7f00;
+      }
+  

@@ -8,18 +8,11 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "fake"
+      username: "Who R U ?"
     };
   }
 
-  changeUsername = newID => {
-    this.setState({
-      username: newID
-    });
-  };
-
   render() {
-    console.log(this.state.username);
     return (
       <Router>
         <Fragment>
