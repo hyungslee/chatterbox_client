@@ -1,51 +1,66 @@
 import React, { Component } from "react";
-import Room from "../component/Room";
-import Post from "../component/Post";
+import Room from "./Room/Room";
+import Post from "./Post/Post";
 import { Link } from "react-router-dom";
 import "./Index.css";
-
-// const username = localStorage.getItem("user");
+import axios from "axios";
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appname: "GO HOME JOHNNY!!",
-      username: this.props.username,
       isLogind: false,
-      Loginout: "로그인해라!!",
-      link: "/login"
+      Log: "로그인",
+      link: "/login",
+      texts: [],
+      roomid: null
     };
   }
 
   componentDidMount = () => {
-    if (this.state.username === "Who R U ?") {
+    if (this.state.isLogind) {
       this.setState({
-        isLogind: false,
-        Loginout: "로그인해라!!",
-        link: "/login"
+        Loginout: "로그아웃",
+        link: "/"
       });
     } else {
       this.setState({
-        isLogind: true,
-        Loginout: "로그아웃해라!!",
-        link: "/"
+        Loginout: "로그인",
+        link: "/login"
       });
     }
+    axios
+      .get("posts/post")
+      .then(res => {
+        console.log("[+] 정보 송신 완료");
+        const texts = res.data;
+        this.setState({ texts: texts });
+      })
+      .catch(err => console.log(err, "[-] 응답없음"));
   };
 
-  clickLogoutButton = () => {
+  clickLogButton = () => {
     if (this.state.isLogind) {
       this.setState({
         isLogind: false,
-        Loginout: "로그인해라!!",
+        Loginout: "로그인",
         link: "/login"
       });
       this.props.history.push("/");
     }
   };
 
+  findPost = () => {
+    axios.post("posts/room", { roomid: this.state.roomid }).then(res => {
+      console.log(res.data);
+      this.setState({
+        texts: res.data
+      });
+    });
+  };
+
   render() {
+    console.log("index :", this.state.texts);
     return (
       <div id="main">
         <div id="index">
@@ -55,15 +70,19 @@ export default class Index extends Component {
             <div className="index-inform-2">{this.state.username}</div>
 
             <Link to={this.state.link}>
-              <button className="index-btn" onClick={this.clickLogoutButton}>
-                {this.state.Loginout}
+              <button className="index-btn" onClick={this.clickLogButton}>
+                {this.state.Log}
               </button>
             </Link>
           </div>
         </div>
         <div className="component-div">
-          <Room className="room" />
-          <Post className="post" />
+          <Room
+            className="room"
+            roomid={this.state.roomid}
+            findPost={this.findPost}
+          />
+          <Post className="post" texts={this.state.texts} />
         </div>
       </div>
     );
