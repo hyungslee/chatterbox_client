@@ -35,8 +35,11 @@
         background-color: #ff8906;
         outline-style: none;
       }
-      .rpost-btn:hover {
+      .post-btn:hover {
         cursor: pointer;
         background-color: #ff7f00;
       }
-  
+      .post-one {
+        border: 1px solid blue;
+        max-width: 100%;
+      }

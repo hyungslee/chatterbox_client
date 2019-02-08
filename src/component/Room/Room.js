@@ -7,15 +7,16 @@ export default class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      roomname: "",
-      currentroom: "Home",
-      rooms: []
+      newroomname: "",
+      rooms: [],
+      nowroom: ""
     };
   }
 
   handleChange = e => {
     this.setState({
-      roomname: e.target.value
+      ...this.state,
+      newroomname: e.target.value
     });
   };
 
@@ -23,13 +24,14 @@ export default class Room extends Component {
     axios
       .get("/rooms/room")
       .then(res => {
-        console.log("[+] 룸 정보 송신 완료");
+        console.log("Room : [+] 룸 정보 송신 완료");
         console.log(res.data);
         const rooms = res.data;
         const length = rooms.length - 1;
         this.setState({
-          currentroom: rooms[length].roomname,
-          rooms: rooms
+          ...this.state,
+          rooms: rooms,
+          nowroom: rooms[length].roomname
         });
       })
       .catch(err => console.log(err));
@@ -38,36 +40,41 @@ export default class Room extends Component {
   makeNewroom = () => {
     axios
       .post("rooms/room", {
-        roomname: this.state.roomname
+        roomname: this.state.newroomname
       })
       .then(res => {
         if (res.data) {
           this.dataCome();
-          console.log("[+] 룸 생성 완료");
+          console.log("Room : [+] 룸 생성 완료");
         } else {
-          console.log("[-] 전송 실패");
+          console.log("Room : [-] 룸 생성 실패");
         }
       })
-      .catch(err => console.log(err, "[-] 응답없음"));
+      .catch(err => console.log(err, "Room :[-] 응답없음"));
   };
 
   dataCome = () => {
     axios
       .get("rooms/room")
       .then(res => {
-        console.log("[+] 정보 송신 완료");
+        console.log("Room : [+] 새로운 룸 정보 송신 완료");
         const rooms = res.data;
         const length = rooms.length - 1;
-        this.setState({ currentroom: rooms[length].roomname, rooms: rooms });
+        this.setState({
+          ...this.state,
+          rooms: rooms,
+          nowroom: rooms[length].roomname
+        });
       })
-      .catch(err => console.log(err, "[-] 응답없음"));
+      .catch(err => console.log(err, "Room : [-] 응답없음"));
   };
 
   render() {
+    console.log("방 정보 렌더 되냐?");
     return (
       <div id="room">
         <div className="room-container">
-          <div className="room-name">{this.state.currentroom}</div>
+          <div className="room-name">{this.state.nowroom}</div>
           <div className="room-input">
             <input
               className="room-input-box"
@@ -83,8 +90,7 @@ export default class Room extends Component {
             .map(room => {
               return (
                 <Roomdetail
-                  room={room.roomname}
-                  roomid={this.props.roomid}
+                  roomname={room.roomname}
                   id={room.id}
                   findPost={this.props.findPost}
                 />

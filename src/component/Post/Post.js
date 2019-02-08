@@ -7,14 +7,26 @@ export default class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: localStorage.getItem("user") || "로그인 해줭!",
+      username: "로그인 해주세요",
       text: null,
       roomid: 2,
-      userid: 1
+      userid: 1,
+      texts: []
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    axios
+      .get("posts/post")
+      .then(res => {
+        console.log("Post : [+] 글 정보 송신 완료");
+        const texts = res.data;
+        this.setState({
+          texts: texts
+        });
+      })
+      .catch(err => console.log(err, "[-] 응답없음"));
+  };
 
   handleChange = e => {
     this.setState({
@@ -33,9 +45,9 @@ export default class Post extends Component {
       .then(res => {
         if (res.data) {
           this.dataCome();
-          console.log("[+] 정보 전송 완료");
+          console.log("Post : [+] 글 정보 전송 완료");
         } else {
-          console.log("[-] 전송 실패");
+          console.log("Post : [-] 글 정보 전송 실패");
         }
       })
       .catch(err => console.log(err, "[-] 응답없음"));
@@ -45,9 +57,11 @@ export default class Post extends Component {
     axios
       .get("posts/post")
       .then(res => {
-        console.log("[+] 정보 송신 완료");
+        console.log("Post : [+] 글 정보 송신 완료");
         const texts = res.data;
-        this.props.texts = texts;
+        this.setState({
+          texts: texts
+        });
       })
       .catch(err => console.log(err, "[-] 응답없음"));
   };
@@ -71,11 +85,11 @@ export default class Post extends Component {
           </div>
 
           <div>
-            {this.props.texts
+            {this.state.texts
               .map(text => {
                 return (
-                  <div>
-                    <Postdetail username={text.username} text={text.text} />
+                  <div className="post-one">
+                    {text.username} : {text.text}
                   </div>
                 );
               })
