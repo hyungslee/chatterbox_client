@@ -12,8 +12,9 @@ export default class Index extends Component {
       isLogind: false,
       Log: "로그인",
       link: "/login",
-      texts: [],
-      roomid: null
+      roomid: null,
+      roomname: "All",
+      texts: []
     };
   }
 
@@ -29,14 +30,16 @@ export default class Index extends Component {
         link: "/login"
       });
     }
-    axios
-      .get("posts/post")
-      .then(res => {
-        console.log("[+] 정보 송신 완료");
-        const texts = res.data;
-        this.setState({ texts: texts });
-      })
-      .catch(err => console.log(err, "[-] 응답없음"));
+    // axios
+    //   .get("posts/post")
+    //   .then(res => {
+    //     console.log("index : [+] 글 정보 송신 완료");
+    //     const texts = res.data;
+    //     this.setState({
+    //       texts: texts
+    //     });
+    //   })
+    //   .catch(err => console.log(err, "[-] 응답없음"));
   };
 
   clickLogButton = () => {
@@ -50,17 +53,20 @@ export default class Index extends Component {
     }
   };
 
-  findPost = () => {
-    axios.post("posts/room", { roomid: this.state.roomid }).then(res => {
-      console.log(res.data);
-      this.setState({
-        texts: res.data
-      });
+  findPost = (roomid, roomname) => {
+    this.setState({
+      roomid: roomid,
+      roomname: roomname
     });
+    // axios.post("posts/room", { roomid: roomid }).then(res => {
+    //   console.log(res.data);
+    // this.setState({
+    //   texts: res.data
+    // });
   };
 
   render() {
-    console.log("index :", this.state.texts);
+    console.log("index Room id : ", this.state.roomid, this.state.roomname);
     return (
       <div id="main">
         <div id="index">
@@ -81,6 +87,7 @@ export default class Index extends Component {
             className="room"
             roomid={this.state.roomid}
             findPost={this.findPost}
+            roomname={this.state.roomname}
           />
           <Post className="post" texts={this.state.texts} />
         </div>
