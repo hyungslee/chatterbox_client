@@ -42,7 +42,8 @@ export default class Index extends Component {
         console.log("index : [+] 글 정보 송신 완료");
         const texts = res.data;
         this.setState({
-          texts: texts
+          texts: texts,
+          roomname: "전체보기"
         });
       })
       .catch(err => console.log(err, "[-] 응답없음"));

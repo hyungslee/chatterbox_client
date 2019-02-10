@@ -39,7 +39,7 @@ export default class Post extends Component {
     return (
       <div id="post">
         <div className="post-container">
-          <div className="post-name">욕은 쓰면 안대영~</div>
+          <div className="post-name">Go Home Johnny !!!</div>
           <div className="post-input">
             <input
               className="post-input-box"

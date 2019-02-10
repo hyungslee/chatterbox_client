@@ -82,10 +82,10 @@ export default class Room extends Component {
             </button>
           </div>
           <div
-            className="roomdetail-container"
+            className="roomdetail-all-container"
             onClick={this.props.allPostRender}
           >
-            <div className="room-one">전체보기</div>
+            <div className="room-all-one">전체보기</div>
           </div>
           {this.state.rooms
             .map(room => {
