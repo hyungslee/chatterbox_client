@@ -12,8 +12,10 @@ export default class Index extends Component {
       isLogind: false,
       Log: "로그인",
       link: "/login",
-      roomid: null,
-      roomname: "All",
+      username: "default name",
+      userid: 1,
+      roomid: 1,
+      roomname: "전체보기",
       texts: []
     };
   }
@@ -30,16 +32,21 @@ export default class Index extends Component {
         link: "/login"
       });
     }
-    // axios
-    //   .get("posts/post")
-    //   .then(res => {
-    //     console.log("index : [+] 글 정보 송신 완료");
-    //     const texts = res.data;
-    //     this.setState({
-    //       texts: texts
-    //     });
-    //   })
-    //   .catch(err => console.log(err, "[-] 응답없음"));
+    this.allPostRender();
+  };
+
+  allPostRender = () => {
+    axios
+      .get("posts/post")
+      .then(res => {
+        console.log("index : [+] 글 정보 송신 완료");
+        const texts = res.data;
+        this.setState({
+          texts: texts,
+          roomname: "전체보기"
+        });
+      })
+      .catch(err => console.log(err, "[-] 응답없음"));
   };
 
   clickLogButton = () => {
@@ -58,15 +65,23 @@ export default class Index extends Component {
       roomid: roomid,
       roomname: roomname
     });
-    // axios.post("posts/room", { roomid: roomid }).then(res => {
-    //   console.log(res.data);
-    // this.setState({
-    //   texts: res.data
-    // });
+    this.changeByRoomId(roomid);
+  };
+
+  changeByRoomId = roomid => {
+    axios
+      .post("/posts/room", { roomid: roomid })
+      .then(res => {
+        console.log("index : [+] 룸 or 글 변경 완료");
+        this.setState({
+          texts: res.data,
+          roomid: roomid
+        });
+      })
+      .catch(err => console.log(err, "[-] 응답없음"));
   };
 
   render() {
-    console.log("index Room id : ", this.state.roomid, this.state.roomname);
     return (
       <div id="main">
         <div id="index">
@@ -85,11 +100,20 @@ export default class Index extends Component {
         <div className="component-div">
           <Room
             className="room"
+            nowroom={this.state.roomname}
             roomid={this.state.roomid}
             findPost={this.findPost}
             roomname={this.state.roomname}
+            allPostRender={this.allPostRender}
           />
-          <Post className="post" texts={this.state.texts} />
+          <Post
+            className="post"
+            username={this.state.username}
+            roomid={this.state.roomid}
+            userid={this.state.userid}
+            texts={this.state.texts}
+            changeByRoomId={this.changeByRoomId}
+          />
         </div>
       </div>
     );

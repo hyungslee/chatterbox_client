@@ -1,6 +1,6 @@
 
     #room {
-      width: 100%;
+      width: 100px;
       flex:1;
     }
     .room-container {
@@ -15,9 +15,14 @@
       font-size : 30px;
     }
     .room-input {
+      display:flex;
+      justify-content: center;
+      align-items: center;
       margin : 10px;
     }
     .room-input-box {
+      justify-content: center;
+      align-items: center;
       font-size: 15px;
       text-align: left;
       height: 50px;
@@ -37,4 +42,33 @@
     .room-btn:hover {
       cursor: pointer;
       background-color: #ff7f00;
+    }
+    .roomdetail-all-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* border: 1px solid blue; */
+      padding: 5px;
+      height: 70px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .room-all-one {   
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90%;
+      width: 80%;
+      font-size: 20px;
+      color: #fd0090;
+      background-color: #f5f5f5;
+      border: 5px solid #fd0090;
+      border-radius: 10px;
+    }
+    .room-all-one:hover {  
+      cursor: pointer;
+      background-color: #fd0090;
+      color: whitesmoke;
+      border-radius: 10px;
     }

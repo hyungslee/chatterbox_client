@@ -8,8 +8,7 @@ export default class Room extends Component {
     super(props);
     this.state = {
       newroomname: "",
-      rooms: [],
-      nowroom: ""
+      rooms: []
     };
   }
 
@@ -25,16 +24,13 @@ export default class Room extends Component {
       .get("/rooms/room")
       .then(res => {
         console.log("Room : [+] 룸 정보 송신 완료");
-        console.log(res.data);
         const rooms = res.data;
-        const length = rooms.length - 1;
         this.setState({
           ...this.state,
-          rooms: rooms,
-          nowroom: rooms[length].roomname
+          rooms: rooms
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err, "[-] 응답없음"));
   };
 
   makeNewroom = () => {
@@ -44,7 +40,7 @@ export default class Room extends Component {
       })
       .then(res => {
         if (res.data) {
-          this.dataCome();
+          this.roomDataCome();
           console.log("Room : [+] 룸 생성 완료");
         } else {
           console.log("Room : [-] 룸 생성 실패");
@@ -53,28 +49,27 @@ export default class Room extends Component {
       .catch(err => console.log(err, "Room :[-] 응답없음"));
   };
 
-  dataCome = () => {
+  roomDataCome = () => {
     axios
       .get("rooms/room")
       .then(res => {
         console.log("Room : [+] 새로운 룸 정보 송신 완료");
         const rooms = res.data;
-        const length = rooms.length - 1;
         this.setState({
           ...this.state,
-          rooms: rooms,
-          nowroom: rooms[length].roomname
+          rooms: rooms
         });
+        this.props.findPost(res.data.length, this.state.newroomname);
+        console.log(res.data.length);
       })
       .catch(err => console.log(err, "Room : [-] 응답없음"));
   };
 
   render() {
-    console.log("방 정보 렌더 되냐?");
     return (
       <div id="room">
         <div className="room-container">
-          <div className="room-name">{this.state.nowroom}</div>
+          <div className="room-name">{this.props.nowroom}</div>
           <div className="room-input">
             <input
               className="room-input-box"
@@ -85,6 +80,12 @@ export default class Room extends Component {
             <button className="room-btn" onClick={this.makeNewroom}>
               클릭!
             </button>
+          </div>
+          <div
+            className="roomdetail-all-container"
+            onClick={this.props.allPostRender}
+          >
+            <div className="room-all-one">전체보기</div>
           </div>
           {this.state.rooms
             .map(room => {

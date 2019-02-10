@@ -1,32 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Postdetail from "./detail/Postdetail";
 import "./Post.css";
 
 export default class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "로그인 해주세요",
-      text: null,
-      roomid: 2,
-      userid: 1,
-      texts: []
+      text: null
     };
   }
-
-  componentDidMount = () => {
-    axios
-      .get("posts/post")
-      .then(res => {
-        console.log("Post : [+] 글 정보 송신 완료");
-        const texts = res.data;
-        this.setState({
-          texts: texts
-        });
-      })
-      .catch(err => console.log(err, "[-] 응답없음"));
-  };
 
   handleChange = e => {
     this.setState({
@@ -37,14 +19,14 @@ export default class Post extends Component {
   writeNewtext = () => {
     axios
       .post("posts/post", {
-        username: this.state.username,
+        username: this.props.username,
         text: this.state.text,
-        roomid: this.state.roomid,
-        userid: this.state.userid
+        roomid: this.props.roomid,
+        userid: this.props.userid
       })
       .then(res => {
         if (res.data) {
-          this.dataCome();
+          this.props.changeByRoomId(this.props.roomid);
           console.log("Post : [+] 글 정보 전송 완료");
         } else {
           console.log("Post : [-] 글 정보 전송 실패");
@@ -53,25 +35,11 @@ export default class Post extends Component {
       .catch(err => console.log(err, "[-] 응답없음"));
   };
 
-  dataCome = () => {
-    axios
-      .get("posts/post")
-      .then(res => {
-        console.log("Post : [+] 글 정보 송신 완료");
-        const texts = res.data;
-        this.setState({
-          texts: texts
-        });
-      })
-      .catch(err => console.log(err, "[-] 응답없음"));
-  };
-
   render() {
-    console.log("post :", this.state.texts);
     return (
       <div id="post">
         <div className="post-container">
-          <div className="post-name">욕은 쓰면 안대영~</div>
+          <div className="post-name">Go Home Johnny !!!</div>
           <div className="post-input">
             <input
               className="post-input-box"
@@ -85,7 +53,7 @@ export default class Post extends Component {
           </div>
 
           <div>
-            {this.state.texts
+            {this.props.texts
               .map(text => {
                 return (
                   <div className="post-one">

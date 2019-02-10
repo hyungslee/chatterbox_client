@@ -8,11 +8,9 @@ export default class Roomdetail extends Component {
 
   render() {
     return (
-      <div id="roomdetail">
-        <div className="roomdetail-container">
-          <div className="room-one" onClick={this.findPostClick}>
-            {this.props.id}번방 : {this.props.roomname}
-          </div>
+      <div className="roomdetail-container">
+        <div className="room-one" onClick={this.findPostClick}>
+          {this.props.id}번방 : {this.props.roomname}
         </div>
       </div>
     );
